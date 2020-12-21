@@ -1,22 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Status from './components/status.js'
+import Hours from './components/hours.js'
 import {Container, Button, Alert, Form, Table} from 'react-bootstrap'
 
 import './App.css';
-
-class Status extends Component {
-  state= {
-    status_state:'ON'
-  };
-render(){
-  console.log("rendering the status")
-  return(
-    <p> The system is currently</p>
-  )
-}
-}
-
 
 
 class App extends Component {
@@ -55,7 +44,6 @@ class App extends Component {
   };
   
 render() {
-  console.log(this.state)
     return (
       <div className="App">
         <header className="App-header">
@@ -64,6 +52,12 @@ render() {
 
         <p>{this.state.response}</p>
         <Container>
+          <Status/>
+          <Hours/>
+
+
+
+
         <Form onSubmit={this.handleSubmit}>
           <Form.Label>Request to post to the server</Form.Label>
           <Form.Control type="text" placeholder="Enter Something"
