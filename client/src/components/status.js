@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Badge} from 'react-bootstrap'
-
+import {Nav, Navbar,Form} from 'react-bootstrap'
+import './status.css'
 
 class Status extends Component {
 
@@ -29,11 +29,20 @@ componentDidMount(){
 }
 render(){
   return(
-    <p> The system is currently: 
-      <Badge variant={this.state.status_variante_on}>ON</Badge>
-      {' '}
-      <Badge pill variant={this.state.status_variante_off}>OFF</Badge>
-    </p>
+    <div >
+      <Navbar className="statusComponent" bg="dark"  variant="dark" expand="lg">
+        <Navbar.Brand  href="#home">Anti-Barkinator</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+          </Nav>
+    <Form className="justify-content-md-center" variant="form-dark" inline>
+      <Form.Check type="switch" id="custom-switch"/>
+      <span className="statusComponent">Status ON/OFF</span>
+    </Form>
+      </Navbar.Collapse>
+    </Navbar>
+    </div>
   )
 }
 }

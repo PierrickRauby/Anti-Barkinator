@@ -1,62 +1,36 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Button,Modal,Form} from 'react-bootstrap'
-import moment from 'moment';
-import TimePicker from 'rc-time-picker';
-import 'rc-time-picker/assets/index.css';
+import {Container,Row, Col,Table} from 'react-bootstrap'
+import HoursButton from './hoursButton.js'
+import './hours.css'
 
 class Hours extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      format : 'h:mm a',
-      now : moment().hour(0).minute(0),
-      show: false
-    };
-  }
-  onChange=(value)=> {
-  console.log(value && value.format(format));
-}
-
-  handleClose = () => {
-    this.setState({show:false});
-  }
-  handleShow = () =>{
-    this.setState({show:true});
-  }
-
-render(){
-  return(
-    <div>
-      <Button variant="primary" onClick={this.handleShow} >
-        Launch demo modal
-      </Button>
-      <TimePicker
-        showSecond={false}
-        defaultValue={this.state.now}
-        className="xxx"
-        onChange={this.onChange}
-        format={this.state.format}
-        use12Hours
-        inputReadOnly
-      />
-      <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>New hours</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Please enter</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={this.handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+  render(){
+    return(
+      <div>
+        <Container className="hoursComponent">
+          <h3> Hours of operation</h3>
+          <Row className="justify-content-md-center">
+            <Col lg xl={{span:8}}>
+                <Table responsive style={{color:"#000"}} striped bordered hover>
+                  <tbody>
+                    <tr>
+                      <td>Start time</td>
+                      <td><HoursButton className="test" value={'start'}/></td>
+                    </tr>
+                    <tr>
+                      <td>Stop time</td>
+                      <td>
+                        <HoursButton className="test2" value={'stop'}/>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     )
-}
+  }
 }
 export default Hours

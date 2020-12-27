@@ -3,7 +3,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Status from './components/status.js'
 import Hours from './components/hours.js'
-import {Container, Button, Alert, Form, Table} from 'react-bootstrap'
+import History from './components/history.js'
+import {Container} from 'react-bootstrap'
 
 import './App.css';
 
@@ -47,7 +48,6 @@ render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1> The Anti-Barkinator</h1>
         </header>
 
         <p>{this.state.response}</p>
@@ -55,9 +55,8 @@ render() {
           <Status/>
           <Hours/>
 
-
-
-
+          {/*  Part to delet when server is ready */}
+          {/*
         <Form onSubmit={this.handleSubmit}>
           <Form.Label>Request to post to the server</Form.Label>
           <Form.Control type="text" placeholder="Enter Something"
@@ -67,35 +66,9 @@ render() {
           <Button type="submit">Submit</Button>
         </Form>
         <Alert>{this.state.responseToPost}</Alert>
-          <Table style={{color:"#000"}} striped bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td colSpan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </Table>
+        */}
+          {/*  End of the part to delet */}
+          <History/>
         </Container>
 
       </div>
