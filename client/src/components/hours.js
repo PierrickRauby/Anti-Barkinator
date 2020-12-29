@@ -5,6 +5,7 @@ import HoursButton from './hoursButton.js'
 import './hours.css'
 
 class Hours extends Component {
+
   render(){
     return(
       <div>
@@ -15,13 +16,13 @@ class Hours extends Component {
                 <Table responsive style={{color:"#000"}} striped bordered hover>
                   <tbody>
                     <tr>
-                      <td>Start time</td>
-                      <td><HoursButton className="test" value={'start'}/></td>
+                      <td><b>Start time</b><br/> The time at which the system will start listening</td>
+                      <td><HoursButton hour={this.props.hourStart} value={'start'} hourChange={this.props.hourChange}/></td>
                     </tr>
                     <tr>
-                      <td>Stop time</td>
+                      <td><b>Stop time</b><br/> The time at which the system will stop listening</td>
                       <td>
-                        <HoursButton className="test2" value={'stop'}/>
+                        <HoursButton hour={this.props.hourStop} value={'stop'} hourChange={this.props.hourChange}/>
                       </td>
                     </tr>
                   </tbody>
