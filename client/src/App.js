@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Status from './components/status.js'
 import Hours from './components/hours.js'
+import moment from 'moment'
 import History from './components/history.js'
 import {Container} from 'react-bootstrap'
 import './App.css';
@@ -13,6 +14,7 @@ class App extends Component {
     super(props);
     this.statusChange = this.statusChange.bind(this);
     this.hourChange=this.hourChange.bind(this);
+    this.sushNow=this.sushNow.bind(this);
     this.state = {
       status:'',
       hourStart:'',
@@ -37,7 +39,34 @@ class App extends Component {
     if (response.status !== 200) throw Error(body.message);
     return body;
   };
-  
+
+
+  handleSushNow = async e => {
+    const response = await fetch('/api/sush-now', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ post: true, hour: moment() }),
+    });
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+    return body;
+  };
+
+
+
+  sushNow(){
+    this.handleSushNow()
+      .then(res =>this.setState({
+        status:res.express.status,
+        hourStart:res.express.hour_start,
+        hourStop:res.express.hour_stop,
+        alertLog: res.express.alert_log
+      }))
+      .catch(err => console.log(err));
+  }
+
   handleChangeHour = async (start_stop,new_time) => {
     const response = await fetch('/api/update-hours', {
       method: 'POST',
@@ -53,46 +82,27 @@ class App extends Component {
   };
 
   hourChange(start_stop,new_time){
-    console.log(start_stop)
-    console.log(new_time)
     this.handleChangeHour(start_stop,new_time)
-      .then(res =>{this.setState({
+      .then(res =>this.setState({
         status:res.express.status,
         hourStart:res.express.hour_start,
         hourStop:res.express.hour_stop,
         alertLog: res.express.alert_log
-      });
-        console.log(this.state)}
-      )
+      }))
       .catch(err => console.log(err));
   }
 
 
-  handleChangeState = async e => {
-    const response = await fetch('/api/update-status', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ post: this.state.status }),
-    });
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    return body;
-  };
-
-
   statusChange(element){
-    var new_status=!this.state.status
-    this.setState({status:new_status});
+    //var new_status=!this.state.status
+    //this.setState({status:new_status});
     this.handleChangeState()
       .then(res =>this.setState({
         status:res.express.status,
         hourStart:res.express.hour_start,
         hourStop:res.express.hour_stop,
         alertLog: res.express.alert_log
-      })
-      )
+      }))
       .catch(err => console.log(err));
   }
 
@@ -113,9 +123,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+          <Status status={this.state.status} statusChange={this.statusChange} sushNow={this.sushNow} />
         </header>
         <Container>
-          <Status status={this.state.status} statusChange={this.statusChange} />
           <Hours hourStart={this.state.hourStart} hourStop={this.state.hourStop} hourChange={this.hourChange} />
           <History alertLog={this.state.alertLog}/>
         </Container>

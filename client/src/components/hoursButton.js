@@ -18,19 +18,6 @@ class hourButton extends Component {
     };
   }
 
-  //handleSubmit = async () => {
-    //const response = await fetch('/api/update_Hours', {
-      //method: 'POST',
-      //headers: {
-        //'Content-Type': 'application/json',
-      //},
-      //body: JSON.stringify({ start_stop:this.props.value,
-        //hour: this.props.hour }),
-    //});
-    //const body = await response.text();
-    //this.setState({ responseToPost: body });
-  //};
-
   handleSave=()=>{
     this.setState({show:false});
     var new_time;
@@ -58,15 +45,13 @@ class hourButton extends Component {
       default:
         console.log('error on am pm switch')
     }
-    console.log(new_time)
     this.props.hourChange(this.props.value,new_time);
   }
 
   handleClose = () => {
     this.setState({show:false});
-    console.log(this.state)
-    console.log(this.props);
   }
+
   handleShow = () =>{
     this.setState({show:true});
   }
@@ -91,7 +76,6 @@ class hourButton extends Component {
     return(
       <div>
           <Button variant="primary" onClick={this.handleShow} >
-            {/*{this.props.hour.format('LT')} */}
             {moment(this.props.hour).format('LT')} 
           </Button>
           <Modal show={this.state.show} onHide={this.handleClose}>

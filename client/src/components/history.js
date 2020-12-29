@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Container,Row,Table} from 'react-bootstrap'
+import moment from 'moment'
 import './history.css'
 
 class History extends Component {
   render(){
     var alertLog=this.props.alertLog.map((element)=>
       <tr key={element.hours.toString()} >
-        <td>{element.hours}</td>
-        <td>{element.message}</td>
+        <td>{moment(element.hours).format('LT')}</td>
+        {/*<td>{element.message}</td>*/}
         <td>{element.confidence}</td>
         <td>{ element.triger===1 ? 'auto' :'manual'}</td>
       </tr>
@@ -18,11 +19,11 @@ class History extends Component {
         <Container className="hoursComponent">
           <h3> History of Alerts</h3>
           <Row className="justify-content-md-center">
-          <Table style={{color:"#000"}} striped bordered hover>
+          <Table style={{color:"#000"}} striped bordered hover responsive>
             <thead>
               <tr>
                 <th>Hours</th>
-                <th>Message</th>
+                {/*<th>Message</th>*/}
                 <th>Confidence</th>
                 <th>triggered</th>
               </tr>
