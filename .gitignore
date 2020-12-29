@@ -149,3 +149,4 @@ dmypy.json
 
 # other personnal exclusion
 /data
+/barking_recognition
