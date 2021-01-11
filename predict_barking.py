@@ -6,7 +6,7 @@ import librosa
 #from keras.models import model_from_json
 import tensorflow as tf
 import pyaudio
-from gpiozero import LED
+# from gpiozero import LED
 import wave
 # from time import sleep
 
@@ -24,14 +24,9 @@ audio = pyaudio.PyAudio() # create pyaudio instantiation
 
 # To control the LEDs on the board
 
-led22 = LED(22)
-led17 = LED(17)
-Led27 = LED(27)
-# while True:
-    # led.on()
-    # sleep(1)
-    # led.off()
-    # sleep(1)
+# led22 = LED(22)
+# led17 = LED(17)
+# Led27 = LED(27)
 
 # Reloading the model
 # Reloading the model as a TFlite model
@@ -74,7 +69,7 @@ def save_STFT(file_path):
 
 def record_audio(audio_counter,audio): 
     # this function generates a new audio file :
-    led22.on()
+    # led22.on()
     wav_output_filename = 'data/audio_record//test_'+str(audio_counter)+'.wav' # name of .wav file
 
 
@@ -91,14 +86,14 @@ def record_audio(audio_counter,audio):
         frames.append(data)
 
     print("finished recording")
-    led22.off()
+    # led22.off()
     return wav_output_filename
 
 counter=0
 while True:
     with open(FIFO) as fifo:
         print('new occurence')
-        led17.on()
+        # led17.on()
         while True:
             data_fifo=fifo.read()
             path=record_audio(counter,audio)
@@ -114,5 +109,5 @@ while True:
                 print(pred)
                 print("Nothing!")
             if len(data_fifo)==0:
-                led17.off()
+                # led17.off()
                 break
