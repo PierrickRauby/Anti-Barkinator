@@ -3,7 +3,8 @@ import numpy as np
 import os 
 import errno
 import librosa
-from keras.models import model_from_json
+#from keras.models import model_from_json
+import tensorflow as tf
 import pyaudio
 from gpiozero import LED
 import wave
@@ -33,11 +34,23 @@ Led27 = LED(27)
     # sleep(1)
 
 # Reloading the model
-# Model reconstruction from JSON file
-with open('barking_recognition/notebook/architecture.json', 'r') as f:
-    model = model_from_json(f.read())
-# Load weights into the new model
-model.load_weights('barking_recognition/notebook/weights.h5')
+# Reloading the model as a TFlite model
+
+# Load the TFLite model and allocate tensors.
+interpreter = tf.lite.Interpreter(model_path="converted_model.tflite")
+interpreter.allocate_tensors()
+# Get input and output tensors.
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
+# Test the model on random input data.
+input_shape = input_details[0]['shape']
+
+## Model reconstruction from JSON file
+#with open('barking_recognition/notebook/architecture.json', 'r') as f:
+#    model = model_from_json(f.read())
+## Load weights into the new model
+#model.load_weights('barking_recognition/notebook/weights.h5')
 
 # Helping function
 def save_STFT(file_path):
@@ -50,7 +63,12 @@ def save_STFT(file_path):
     stft =np.mean(np.abs(librosa.stft(trimmed, n_fft=512, hop_length=256, win_length=512)).T,axis=0)
     # save features
 
-    result = model.predict(np.array( [ stft,] )  )
+    interpreter.set_tensor(input_details[0]['index'], np.array([ stft,]))
+    interpreter.invoke()
+
+
+    # result = model.predict(np.array( [ stft,] )  )
+    result= interpreter.get_tensor(output_details[0]['index'])
     predictions = [np.argmax(y) for y in result]
     return predictions[0]
 
