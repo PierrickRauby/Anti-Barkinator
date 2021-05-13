@@ -4,7 +4,7 @@
   "scripts": {
     "client": "cd client && npm run start",
     "server": "nodemon server.js --ignore './client/'",
-    "dev": "concurrently --kill-others-on-fail \"nodemon server.js\" \"npm run client\" \"python3 predict_barking.py\""
+    "dev": "concurrently --kill-others-on-fail \"nodemon server.js\" \"npm run client\""
   },
   "dependencies": {
     "body-parser": "^1.19.0",
