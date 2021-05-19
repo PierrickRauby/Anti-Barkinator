@@ -150,3 +150,6 @@ dmypy.json
 # other personnal exclusion
 /data
 /barking_recognition
+
+tensorflow-2.3.0-cp37-none-linux_armv7l.whl
+tensorflow-2.3.0-cp37-none-linux_armv7l_download.sh
