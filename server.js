@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const  moment = require('moment');
-const https = require('https');
+const http = require('http');
 const app = express();
 const port = process.env.PORT || 5000;
 const path='/api/'
@@ -72,24 +72,26 @@ POST: sush now
 app.post(path+'sush-now', (req,res) => {
   // Experimental 
   // Do a get request on port5000 of the Raspberry Pi connected to the speakers
-  const options = {
-    hostname: 'http://192.168.1.183',
-    port: 5000,
-    path: '/sushnow',
-    method: 'GET'
-  }
-  const req = https.request(options, res => {
-    console.log(`statusCode: ${res.statusCode}`)
+  //const options = {
+    //hostname: 'http://192.168.1.183',
+    //port: 5000,
+    //path: '/sushnow',
+    //method: 'GET'
+  //}
+  const Getreq = http.get('http://192.168.1.183:5000/sushnow', res => {
+    //console.log(`statusCode: ${res.statusCode}`)
+      console.log('data received')
 
     res.on('data', d => {
+      console.log('data received')
       process.stdout.write(d)
     })
   })
-req.on('error', error => {
-  console.error(error)
+Getreq.on('error', error => {
+  console.log('error received')
 })
 
-req.end()
+Getreq.end()
 
 
 
