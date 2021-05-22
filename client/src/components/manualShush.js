@@ -9,7 +9,7 @@ class manualSush extends Component {
     super(props);
     this.handleSush=this.handleSush.bind(this);
     this.state = {
-      buttonMessage:'Sush now!',
+      buttonMessage:'Shush now!',
       buttonStyle:'outline-success',
       buttonStatus:false
     };
@@ -18,13 +18,13 @@ class manualSush extends Component {
   handleSush=()=>{
     this.props.sushNow()
     this.setState({
-      buttonMessage:'Sushed!',
+      buttonMessage:'Shushed!',
       buttonStyle:'danger',
       buttonStatus:true
     });
     setTimeout(function(){
     this.setState({
-      buttonMessage:'Sush now!',
+      buttonMessage:'Shush now!',
       buttonStyle:'outline-success',
       buttonStatus:false
     })}.bind(this), 1000);
